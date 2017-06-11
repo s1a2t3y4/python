@@ -108,13 +108,22 @@ def display(values):
 
 def eliminate(values):
     solved_values=[j for j in values.keys() if len(values[j])==1]
+    diapeers1=['A1','B2','C3','D4','E5','F6','G7','H8','I9']
+    diapeers2=['A9','B8','C7','D6','E5','F4','G3','H2','I1']
     for i in solved_values:
         value=values[i]
-        for peer in peers[i]:
+        if i in diapeers1:
+            diapeers1.remove(i)
+            updatedpeers=peers[i].union(diapeers1)
+        elif i in diapeers2:
+            diapeers2.remove(i)
+            updatedpeers=peers[i].union(diapeers2)
+        else:
+            updatedpeers=peers[i]
+        for peer in updatedpeers:
             values[peer]=values[peer].replace(value,'')
     return values
-
-
+ 
 def only_choice(values):
     for unit in unitlist:
         for digit in '123456789':
@@ -154,7 +163,7 @@ def search(values):
     n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
             
     for value in values[s]:
-        new_sudoku = values.copy()
+        new_sudoku = values.copy() 
         new_sudoku[s] = value
         attempt = search(new_sudoku)
         if attempt:
@@ -172,7 +181,8 @@ def solve(grid):
     return search(grid_values(grid))
 
 if __name__ == '__main__':
-    diag_sudoku_grid = '9.1....8.8.5.7..4.2.4....6...7......5..............83.3..6......9................'
+    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    # display(grid_values(diag_sudoku_grid))
     display(solve(diag_sudoku_grid))
 
     try:

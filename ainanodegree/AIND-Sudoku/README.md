@@ -8,7 +8,7 @@ corresponsing peers and which are not equal to that cell value and remove the co
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: for this problem we need to enhance eliminate method based on element we need to add peer element to include diagonal elements
 
 ### Install
 
